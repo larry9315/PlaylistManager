@@ -1126,4 +1126,5 @@ CMakeFiles/PlaylistManager.dir/src/main.cpp.o: \
   /opt/homebrew/include/drogon/IntranetIpFilter.h \
   /opt/homebrew/include/drogon/LocalHostFilter.h \
   /opt/homebrew/include/drogon/IOThreadStorage.h \
-  /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/include/YouTubeAuth.h
+  /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/include/YouTubeAuth.h \
+  /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/include/SpotifyAuth.h

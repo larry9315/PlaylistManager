@@ -15,13 +15,11 @@ SpotifyAuth::SpotifyAuth(const std::string &clientId, const std::string &clientS
     : clientId(clientId), clientSecret(clientSecret), redirectUri(redirectUri) {}
 
 std::string SpotifyAuth::getAuthUrl() const {
-    std::ostringstream url;
-    url << "https://accounts.spotify.com/authorize?"
-        << "client_id=" << clientId
-        << "&response_type=code"
-        << "&redirect_uri=" << redirectUri
-        << "&scope=user-read-private user-read-email";
-    return url.str();
+    return "https://accounts.spotify.com/authorize?"
+           "response_type=code&client_id=" + clientId +
+           "&redirect_uri=" + redirectUri +
+           "&state=spotify" +  // Add "state" to track service
+           "&prompt=consent";  // Force re-authentication
 }
 
 std::string SpotifyAuth::exchangeCodeForToken(const std::string &code) const {

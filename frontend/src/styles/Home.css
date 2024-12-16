@@ -7,13 +7,19 @@ html {
 
 .home-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100vh;
-    /*background: linear-gradient(to right, #6e8efb, #a777e3); !* Gradient background *!*/
-    /*color: #fff;*/
-    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.content {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
 }
 
 .home-header {
@@ -31,22 +37,6 @@ html {
     margin-bottom: 2rem;
 }
 
-.login-button {
-    background-color: #fff;
-    color: #6e8efb;
-    border: none;
-    padding: 15px 30px; /* Adjust button size */
-    font-size: 1.1rem;  /* Slightly larger font */
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover */
-}
-
-.login-button:hover {
-    background-color: #e0e0e0;
-    transform: scale(1.05); /* Slight scaling effect */
-}
-
 .nav {
     margin-top: 20px;
 }
@@ -61,4 +51,46 @@ html {
 
 .nav-link:hover {
     color: #d1c4e9;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.login-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+    text-transform: uppercase;
+}
+
+.login-button.youtube {
+    background-color: #ff0000;
+}
+
+.login-button.youtube:hover {
+    background-color: #cc0000;
+}
+
+.login-button.spotify {
+    background-color: #1db954;
+}
+
+.login-button.spotify:hover {
+    background-color: #169c44;
 }

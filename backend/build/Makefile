@@ -176,6 +176,30 @@ controllers/Playlist.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManager.dir/build.make CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.s
 .PHONY : controllers/Playlist.cc.s
 
+src/SpotifyAuth.o: src/SpotifyAuth.cpp.o
+.PHONY : src/SpotifyAuth.o
+
+# target to build an object file
+src/SpotifyAuth.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManager.dir/build.make CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o
+.PHONY : src/SpotifyAuth.cpp.o
+
+src/SpotifyAuth.i: src/SpotifyAuth.cpp.i
+.PHONY : src/SpotifyAuth.i
+
+# target to preprocess a source file
+src/SpotifyAuth.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManager.dir/build.make CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.i
+.PHONY : src/SpotifyAuth.cpp.i
+
+src/SpotifyAuth.s: src/SpotifyAuth.cpp.s
+.PHONY : src/SpotifyAuth.s
+
+# target to generate assembly for a file
+src/SpotifyAuth.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManager.dir/build.make CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.s
+.PHONY : src/SpotifyAuth.cpp.s
+
 src/YouTubeAuth.o: src/YouTubeAuth.cpp.o
 .PHONY : src/YouTubeAuth.o
 
@@ -262,6 +286,9 @@ help:
 	@echo "... controllers/Playlist.o"
 	@echo "... controllers/Playlist.i"
 	@echo "... controllers/Playlist.s"
+	@echo "... src/SpotifyAuth.o"
+	@echo "... src/SpotifyAuth.i"
+	@echo "... src/SpotifyAuth.s"
 	@echo "... src/YouTubeAuth.o"
 	@echo "... src/YouTubeAuth.i"
 	@echo "... src/YouTubeAuth.s"

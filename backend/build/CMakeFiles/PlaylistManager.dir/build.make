@@ -100,10 +100,24 @@ CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/src/YouTubeAuth.cpp -o CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.s
 
+CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o: CMakeFiles/PlaylistManager.dir/flags.make
+CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o: /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/src/SpotifyAuth.cpp
+CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o: CMakeFiles/PlaylistManager.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o -MF CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o.d -o CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o -c /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/src/SpotifyAuth.cpp
+
+CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/src/SpotifyAuth.cpp > CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.i
+
+CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/src/SpotifyAuth.cpp -o CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.s
+
 CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o: CMakeFiles/PlaylistManager.dir/flags.make
 CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o: /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/controllers/Playlist.cc
 CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o: CMakeFiles/PlaylistManager.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o -MF CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o.d -o CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o -c /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/controllers/Playlist.cc
 
 CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.i: cmake_force
@@ -118,6 +132,7 @@ CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.s: cmake_force
 PlaylistManager_OBJECTS = \
 "CMakeFiles/PlaylistManager.dir/src/main.cpp.o" \
 "CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o" \
+"CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o" \
 "CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o"
 
 # External object files for target PlaylistManager
@@ -125,6 +140,7 @@ PlaylistManager_EXTERNAL_OBJECTS =
 
 PlaylistManager: CMakeFiles/PlaylistManager.dir/src/main.cpp.o
 PlaylistManager: CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o
+PlaylistManager: CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o
 PlaylistManager: CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o
 PlaylistManager: CMakeFiles/PlaylistManager.dir/build.make
 PlaylistManager: /opt/homebrew/lib/libdrogon.1.9.8.dylib
@@ -133,7 +149,7 @@ PlaylistManager: /opt/homebrew/lib/libcrypto.dylib
 PlaylistManager: /opt/homebrew/lib/libtrantor.1.5.22.dylib
 PlaylistManager: /opt/homebrew/lib/libjsoncpp.dylib
 PlaylistManager: CMakeFiles/PlaylistManager.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable PlaylistManager"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable PlaylistManager"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PlaylistManager.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
