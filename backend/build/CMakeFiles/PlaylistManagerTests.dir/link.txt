@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/PlaylistManagerTests.dir/tests/test_main.cpp.o -o PlaylistManagerTests  /opt/homebrew/lib/libgtest.a /opt/homebrew/lib/libgtest_main.a /opt/homebrew/lib/libgtest.a

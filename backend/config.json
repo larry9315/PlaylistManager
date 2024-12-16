@@ -1,0 +1,13 @@
+{
+  "db_clients": [
+    {
+      "name": "default",
+      "rdbms": "sqlite3",
+      "host": "",
+      "port": 0,
+      "dbname": "playlist.db",
+      "username": "",
+      "password": ""
+    }
+  ]
+}

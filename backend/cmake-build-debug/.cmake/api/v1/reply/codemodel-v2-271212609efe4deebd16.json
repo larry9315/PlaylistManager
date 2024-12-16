@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "PlaylistManager",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "PlaylistManager::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PlaylistManager-Debug-da0ea79023802c1fa76a.json",
+					"name" : "PlaylistManager",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PlaylistManagerTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PlaylistManagerTests-Debug-a5b8d7c79ff433f7156a.json",
+					"name" : "PlaylistManagerTests",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/cmake-build-debug",
+		"source" : "/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

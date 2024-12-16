@@ -1,0 +1,64 @@
+/* src/styles/Home.css */
+
+html {
+    background: linear-gradient(to right, #6e8efb, #a777e3); /* Gradient background */
+    color: #fff;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /*background: linear-gradient(to right, #6e8efb, #a777e3); !* Gradient background *!*/
+    /*color: #fff;*/
+    font-family: 'Arial', sans-serif;
+}
+
+.home-header {
+    text-align: center;
+    margin-bottom: 2rem; /* Add spacing below the header */
+}
+
+.home-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.home-header p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.login-button {
+    background-color: #fff;
+    color: #6e8efb;
+    border: none;
+    padding: 15px 30px; /* Adjust button size */
+    font-size: 1.1rem;  /* Slightly larger font */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover */
+}
+
+.login-button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05); /* Slight scaling effect */
+}
+
+.nav {
+    margin-top: 20px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px; /* Add spacing between links */
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #d1c4e9;
+}

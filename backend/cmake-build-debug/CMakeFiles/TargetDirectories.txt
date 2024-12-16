@@ -1,0 +1,5 @@
+/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/cmake-build-debug/CMakeFiles/PlaylistManager.dir
+/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/cmake-build-debug/CMakeFiles/PlaylistManagerTests.dir
+/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/cmake-build-debug/CMakeFiles/test.dir
+/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/cmake-build-debug/CMakeFiles/rebuild_cache.dir
