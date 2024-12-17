@@ -12,6 +12,7 @@ using namespace boost::beast;
 using namespace boost::asio;
 using namespace std;
 using json = nlohmann::json;
+using namespace std;
 
 YouTubeAuth::YouTubeAuth(const string &clientId, const string &clientSecret, const string &redirectUri)
     : clientId(clientId), clientSecret(clientSecret), redirectUri(redirectUri) {}
@@ -71,5 +72,48 @@ std::string YouTubeAuth::exchangeCodeForToken(const std::string &authCode) const
         }
     } catch (const std::exception &e) {
         return "";  // Handle all exceptions gracefully
+    }
+}
+
+vector<string> YouTubeAuth::fetchYouTubePlaylists(const string &accessToken) const {
+    try {
+        io_context ioc;
+        ssl::context sslCtx(ssl::context::sslv23_client);
+        ssl::stream<ip::tcp::socket> sslStream(ioc, sslCtx);
+
+        // Connect to YouTube Data API
+        ip::tcp::resolver resolver(ioc);
+        auto const results = resolver.resolve("www.googleapis.com", "443");
+        connect(get_lowest_layer(sslStream), results.begin(), results.end());
+        sslStream.handshake(ssl::stream_base::client);
+
+        // Prepare HTTP GET request
+        http::request<http::string_body> req(http::verb::get, "/youtube/v3/playlists?mine=true&part=snippet,contentDetails", 11);
+        req.set(http::field::host, "www.googleapis.com");
+        req.set(http::field::authorization, "Bearer " + accessToken);
+        req.prepare_payload();
+
+        // Send the request
+        http::write(sslStream, req);
+
+        // Receive the response
+        flat_buffer buffer;
+        http::response<http::string_body> res;
+        http::read(sslStream, buffer, res);
+
+        // Parse JSON response
+        auto jsonResponse = json::parse(res.body());
+        std::vector<std::string> playlists;
+
+        if (jsonResponse.contains("items")) {
+            for (const auto &item : jsonResponse["items"]) {
+                playlists.push_back(item["snippet"]["title"].get<std::string>());
+            }
+        }
+
+        return playlists;
+    } catch (const std::exception &e) {
+        std::cerr << "Error fetching YouTube playlists: " << e.what() << std::endl;
+        return {};
     }
 }

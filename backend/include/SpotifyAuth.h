@@ -1,14 +1,20 @@
 #pragma once
 #include <string>
 
+using namespace std;
+
 class SpotifyAuth {
 public:
-    SpotifyAuth(const std::string &clientId, const std::string &clientSecret, const std::string &redirectUri);
-    std::string getAuthUrl() const;
-    std::string exchangeCodeForToken(const std::string &code) const;
+    SpotifyAuth(const string &clientId, const string &clientSecret, const string &redirectUri);
+
+    string getAuthUrl() const;
+
+    string exchangeCodeForToken(const string &code) const;
+
+    vector<string> fetchSpotifyPlaylists(const string &accessToken) const;
 
 private:
-    std::string clientId;
-    std::string clientSecret;
-    std::string redirectUri;
+    string clientId;
+    string clientSecret;
+    string redirectUri;
 };

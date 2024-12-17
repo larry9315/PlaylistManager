@@ -41,14 +41,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "PlaylistManager::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PlaylistManager-Debug-da0ea79023802c1fa76a.json",
+					"jsonFile" : "target-PlaylistManager-Debug-8086151615754f484d4e.json",
 					"name" : "PlaylistManager",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "PlaylistManagerTests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PlaylistManagerTests-Debug-a5b8d7c79ff433f7156a.json",
+					"jsonFile" : "target-PlaylistManagerTests-Debug-3c19e48ab02b43bfdfc2.json",
 					"name" : "PlaylistManagerTests",
 					"projectIndex" : 0
 				}

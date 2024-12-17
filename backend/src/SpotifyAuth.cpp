@@ -6,10 +6,12 @@
 #include <iostream>
 #include <sstream>
 
-namespace beast = boost::beast;
-namespace http = beast::http;
-namespace net = boost::asio;
+using namespace boost::beast;
+using namespace http;
+using namespace boost::asio;
 using json = nlohmann::json;
+using namespace std;
+
 
 SpotifyAuth::SpotifyAuth(const std::string &clientId, const std::string &clientSecret, const std::string &redirectUri)
     : clientId(clientId), clientSecret(clientSecret), redirectUri(redirectUri) {}
@@ -52,7 +54,7 @@ std::string SpotifyAuth::exchangeCodeForToken(const std::string &code) const {
         http::write(sslStream, req);
 
         // Read response
-        beast::flat_buffer buffer;
+        flat_buffer buffer;
         http::response<http::string_body> res;
         http::read(sslStream, buffer, res);
 
@@ -67,5 +69,48 @@ std::string SpotifyAuth::exchangeCodeForToken(const std::string &code) const {
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return "";
+    }
+}
+
+vector<string> SpotifyAuth::fetchSpotifyPlaylists(const string &accessToken) const {
+    try {
+        io_context ioc;
+        ssl::context sslCtx(ssl::context::sslv23_client);
+        ssl::stream<ip::tcp::socket> sslStream(ioc, sslCtx);
+
+        // Connect to Spotify API
+        ip::tcp::resolver resolver(ioc);
+        auto const results = resolver.resolve("api.spotify.com", "443");
+        connect(get_lowest_layer(sslStream), results.begin(), results.end());
+        sslStream.handshake(ssl::stream_base::client);
+
+        // Prepare HTTP GET request
+        http::request<http::string_body> req(http::verb::get, "/v1/me/playlists", 11);
+        req.set(http::field::host, "api.spotify.com");
+        req.set(http::field::authorization, "Bearer " + accessToken);
+        req.prepare_payload();
+
+        // Send the request
+        http::write(sslStream, req);
+
+        // Receive the response
+        flat_buffer buffer;
+        http::response<http::string_body> res;
+        http::read(sslStream, buffer, res);
+
+        // Parse JSON response
+        auto jsonResponse = json::parse(res.body());
+        std::vector<std::string> playlists;
+
+        if (jsonResponse.contains("items")) {
+            for (const auto &item : jsonResponse["items"]) {
+                playlists.push_back(item["name"].get<std::string>());
+            }
+        }
+
+        return playlists;
+    } catch (const std::exception &e) {
+        std::cerr << "Error fetching Spotify playlists: " << e.what() << std::endl;
+        return {};
     }
 }

@@ -1,12 +1,8 @@
 # ninja log v6
 7	624	1734296183010769927	CMakeFiles/PlaylistManagerTests.dir/tests/test_main.cpp.o	5f37d3303b0a22df
-2	89	1734325724575878167	build.ninja	6f739ea5d878910a
-2250	2293	1734296185253818363	PlaylistManager	871ce9c9f836218e
-7	2250	1734296183010523388	CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o	86ce6c2993696482
-6	1865	1734296183009814604	CMakeFiles/PlaylistManager.dir/src/main.cpp.o	159ce276fea5c7a3
-625	2207	1734296183628504103	PlaylistManagerTests	bc84c96e4fa5ece3
-7	1162	1734296183010664678	CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o	1ed3c9fec6237700
-8	1148	1734325794394936540	CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o	bb5eb123954065ba
-7	1782	1734325794394137969	CMakeFiles/PlaylistManager.dir/src/main.cpp.o	fcd8d4f162dc9fd8
-8	2118	1734325794394795959	CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o	89c6c5095e70b954
+2	89	1734388873405032901	build.ninja	6f739ea5d878910a
 2118	2167	1734325796505071900	PlaylistManager	7272507fc5cb38aa
+8	2118	1734325794394795959	CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o	89c6c5095e70b954
+7	1782	1734325794394137969	CMakeFiles/PlaylistManager.dir/src/main.cpp.o	fcd8d4f162dc9fd8
+625	2207	1734296183628504103	PlaylistManagerTests	bc84c96e4fa5ece3
+8	1148	1734325794394936540	CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o	bb5eb123954065ba
