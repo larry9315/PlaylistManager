@@ -10,7 +10,6 @@ add_executable(PlaylistManager
         src/main.cpp
         src/YouTubeAuth.cpp
         src/SpotifyAuth.cpp
-        controllers/Playlist.cc
 )
 
 # Include directory for custom header files

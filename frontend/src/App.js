@@ -1,14 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Playlists from "./components/Playlists";
 
 function App() {
     return (
-        <Router basename="/">
+        <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/playlists/youtube" element={<Playlists service="youtube" />} />
-                <Route path="/playlists/spotify" element={<Playlists service="spotify" />} />
+                <Route path="/playlists/:service" element={<Playlists />} />
             </Routes>
         </Router>
     );

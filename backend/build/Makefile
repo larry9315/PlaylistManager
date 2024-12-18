@@ -152,30 +152,6 @@ PlaylistManagerTests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManagerTests.dir/build.make CMakeFiles/PlaylistManagerTests.dir/build
 .PHONY : PlaylistManagerTests/fast
 
-controllers/Playlist.o: controllers/Playlist.cc.o
-.PHONY : controllers/Playlist.o
-
-# target to build an object file
-controllers/Playlist.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManager.dir/build.make CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o
-.PHONY : controllers/Playlist.cc.o
-
-controllers/Playlist.i: controllers/Playlist.cc.i
-.PHONY : controllers/Playlist.i
-
-# target to preprocess a source file
-controllers/Playlist.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManager.dir/build.make CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.i
-.PHONY : controllers/Playlist.cc.i
-
-controllers/Playlist.s: controllers/Playlist.cc.s
-.PHONY : controllers/Playlist.s
-
-# target to generate assembly for a file
-controllers/Playlist.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlaylistManager.dir/build.make CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.s
-.PHONY : controllers/Playlist.cc.s
-
 src/SpotifyAuth.o: src/SpotifyAuth.cpp.o
 .PHONY : src/SpotifyAuth.o
 
@@ -283,9 +259,6 @@ help:
 	@echo "... test"
 	@echo "... PlaylistManager"
 	@echo "... PlaylistManagerTests"
-	@echo "... controllers/Playlist.o"
-	@echo "... controllers/Playlist.i"
-	@echo "... controllers/Playlist.s"
 	@echo "... src/SpotifyAuth.o"
 	@echo "... src/SpotifyAuth.i"
 	@echo "... src/SpotifyAuth.s"

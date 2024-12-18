@@ -21,7 +21,8 @@ std::string SpotifyAuth::getAuthUrl() const {
            "response_type=code&client_id=" + clientId +
            "&redirect_uri=" + redirectUri +
            "&state=spotify" +  // Add "state" to track service
-           "&prompt=consent";  // Force re-authentication
+            "&prompt=consent" +     // Force re-authentication
+            "&show_dialog=true";   // Force re-authentication
 }
 
 std::string SpotifyAuth::exchangeCodeForToken(const std::string &code) const {

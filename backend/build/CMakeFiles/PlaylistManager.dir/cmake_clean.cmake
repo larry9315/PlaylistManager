@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o"
-  "CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o.d"
   "CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o"
   "CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o.d"
   "CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o"

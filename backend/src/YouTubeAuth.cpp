@@ -18,14 +18,28 @@ YouTubeAuth::YouTubeAuth(const string &clientId, const string &clientSecret, con
     : clientId(clientId), clientSecret(clientSecret), redirectUri(redirectUri) {}
 
 
+// Function to URL-encode a string
+std::string urlEncode(const std::string &value) {
+    std::ostringstream encoded;
+    for (char c : value) {
+        if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+            encoded << c;
+        } else {
+            encoded << '%' << std::uppercase << std::hex << static_cast<int>(static_cast<unsigned char>(c));
+        }
+    }
+    return encoded.str();
+}
+
 std::string YouTubeAuth::getAuthUrl() const {
+    std::string encodedRedirectUri = urlEncode(redirectUri);
     return "https://accounts.google.com/o/oauth2/auth?"
            "client_id=" + clientId +
-           "&redirect_uri=" + redirectUri +
-           "&response_type=code&scope=https://www.googleapis.com/auth/youtube.readonly"
-           "&state=youtube" +
-           "&prompt=consent";  // Force re-authentication;  // Add "state" to track service
-
+           "&redirect_uri=" + encodedRedirectUri +
+           "&response_type=code"
+           "&scope=https://www.googleapis.com/auth/youtube.readonly"
+           "&state=youtube"
+           "&prompt=consent";
 }
 
 std::string YouTubeAuth::exchangeCodeForToken(const std::string &authCode) const {

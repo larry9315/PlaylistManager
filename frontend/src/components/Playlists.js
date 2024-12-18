@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; // Import useParams
+import "./../styles/Playlists.css";
 
-const Playlists = ({ service }) => {
-    // Initialize the playlists state
+const Playlists = () => {
+    const { service } = useParams(); // Get the service parameter from the URL
     const [playlists, setPlaylists] = useState([]);
 
     useEffect(() => {
         // Fetch playlists for the specified service
-        fetch(`https://3e85-207-102-214-250.ngrok-free.app/playlists/${service}`)
+        fetch(`https://localhost:8080/playlists/${service}`)
             .then((response) => response.json())
             .then((data) => {
                 if (data.playlists) {
@@ -17,8 +19,8 @@ const Playlists = ({ service }) => {
     }, [service]);
 
     return (
-        <div className="playlists-container">
-            <h1>{service === "youtube" ? "YouTube Playlists" : "Spotify Playlists"}</h1>
+        <div>
+            <h1 className="playlist-header">{service.charAt(0).toUpperCase() + service.slice(1)} Playlists</h1>
             <ul>
                 {playlists.map((playlist, index) => (
                     <li key={index}>{playlist}</li>

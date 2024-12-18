@@ -21,11 +21,18 @@ html {
 
 /* Styling for the content wrapper */
 .content {
+    margin-top: 300px;
     padding: 20px;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 8px;
     max-width: 800px;
     width: 100%;
+}
+
+.content h1 {
+    font-size: 2.5em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow */
 }
 
 /* Header styling */
@@ -43,19 +50,6 @@ html {
 .nav {
     margin-top: 20px;
 }
-
-.nav-link {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px; /* Add spacing between links */
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #d1c4e9;
-}
-
 /* Section titles */
 h1 {
     margin-bottom: 10px;
@@ -108,37 +102,3 @@ p {
     background-color: #169c44;
 }
 
-/* Fetch buttons */
-.fetch-button {
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.fetch-button:hover {
-    background-color: #3a8c41;
-}
-
-/* Playlist display styling */
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0 auto;
-    max-width: 600px;
-}
-
-li {
-    background-color: rgba(255, 255, 255, 0.1);
-    margin: 0.5rem auto;
-    padding: 0.8rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: #fff;
-    font-size: 1.1rem;
-    text-align: left;
-}

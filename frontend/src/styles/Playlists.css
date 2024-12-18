@@ -9,13 +9,31 @@ h1 {
     color: #333;
 }
 
+/* Playlist display styling */
 ul {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
+    margin: 0 auto;
+    max-width: 600px;
 }
 
 li {
-    margin: 10px 0;
-    font-size: 18px;
-    color: #555;
+    background-color: white;
+    margin: 0.5rem auto;
+    padding: 0.8rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: black;
+    font-size: 1.1rem;
+    text-align: left;
+}
+
+.playlist-header {
+    font-size: 2.5rem; /* Larger text size */
+    font-weight: bold;
+    color: #ffffff; /* White text */
+    text-transform: capitalize; /* Capitalize the text */
+    margin: 20px 0; /* Add spacing */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow */
+    text-align: center;
 }
