@@ -38,8 +38,8 @@ std::string YouTubeAuth::getAuthUrl() const {
            "&redirect_uri=" + encodedRedirectUri +
            "&response_type=code"
            "&scope=https://www.googleapis.com/auth/youtube.readonly"
-           "&state=youtube"
-           "&prompt=consent";
+           "&state=youtube";
+           // "&prompt=consent";
 }
 
 std::string YouTubeAuth::exchangeCodeForToken(const std::string &authCode) const {
@@ -89,7 +89,7 @@ std::string YouTubeAuth::exchangeCodeForToken(const std::string &authCode) const
     }
 }
 
-vector<string> YouTubeAuth::fetchYouTubePlaylists(const string &accessToken) const {
+std::vector<std::pair<std::string, std::string>> YouTubeAuth::fetchYouTubePlaylists(const string &accessToken) const {
     try {
         io_context ioc;
         ssl::context sslCtx(ssl::context::sslv23_client);
@@ -117,17 +117,70 @@ vector<string> YouTubeAuth::fetchYouTubePlaylists(const string &accessToken) con
 
         // Parse JSON response
         auto jsonResponse = json::parse(res.body());
-        std::vector<std::string> playlists;
+        std::vector<std::pair<std::string, std::string>> playlists;
 
         if (jsonResponse.contains("items")) {
             for (const auto &item : jsonResponse["items"]) {
-                playlists.push_back(item["snippet"]["title"].get<std::string>());
+                std::string playlistId = item["id"].get<std::string>();
+                std::string title = item["snippet"]["title"].get<std::string>();
+                playlists.emplace_back(playlistId, title);
             }
         }
 
         return playlists;
     } catch (const std::exception &e) {
         std::cerr << "Error fetching YouTube playlists: " << e.what() << std::endl;
+        return {};
+    }
+}
+
+std::vector<std::string> YouTubeAuth::fetchYouTubePlaylistSongs(const std::string &accessToken, const std::string &playlistId) const {
+    try {
+        io_context ioc;
+        ssl::context sslCtx(ssl::context::sslv23_client);
+        ssl::stream<ip::tcp::socket> sslStream(ioc, sslCtx);
+
+        ip::tcp::resolver resolver(ioc);
+        auto const results = resolver.resolve("www.googleapis.com", "443");
+        connect(get_lowest_layer(sslStream), results.begin(), results.end());
+        sslStream.handshake(ssl::stream_base::client);
+
+        std::vector<std::string> songs;
+
+        // Construct request
+        std::string target = "/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=" + playlistId;
+        http::request<http::string_body> req(http::verb::get, target, 11);
+        req.set(http::field::host, "www.googleapis.com");
+        req.set(http::field::authorization, "Bearer " + accessToken);
+        req.prepare_payload();
+
+        http::write(sslStream, req);
+
+        flat_buffer buffer;
+        http::response<http::string_body> res;
+        http::read(sslStream, buffer, res);
+
+        // Parse the response
+        auto jsonResponse = json::parse(res.body());
+        std::cout << "HTTP Response: " << res.body() << std::endl;
+
+        // Check for errors in the API response
+        if (jsonResponse.contains("error")) {
+            std::cerr << "YouTube API Error: " << jsonResponse.dump() << std::endl;
+            throw std::runtime_error(jsonResponse["error"]["message"].get<std::string>());
+        }
+
+        if (jsonResponse.contains("items")) {
+            for (const auto &item : jsonResponse["items"]) {
+                if (item.contains("snippet") && item["snippet"].contains("title")) {
+                    songs.push_back(item["snippet"]["title"].get<std::string>());
+                }
+            }
+        }
+
+        return songs;
+    } catch (const std::exception &e) {
+        std::cerr << "Error fetching YouTube playlist songs: " << e.what() << std::endl;
         return {};
     }
 }

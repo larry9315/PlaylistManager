@@ -15,7 +15,9 @@ public:
     // Exchange an authorization code for an access token
     string exchangeCodeForToken(const string &authCode) const;
 
-    vector<string> fetchYouTubePlaylists(const string &accessToken) const;
+    std::vector<std::pair<std::string, std::string>> fetchYouTubePlaylists(const string &accessToken) const;
+
+    std::vector<std::string> fetchYouTubePlaylistSongs(const std::string &accessToken, const std::string &playlistId) const;
 
 private:
     string clientId;        // Google API Client ID

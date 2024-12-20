@@ -11,7 +11,9 @@ public:
 
     string exchangeCodeForToken(const string &code) const;
 
-    vector<string> fetchSpotifyPlaylists(const string &accessToken) const;
+    std::vector<std::pair<std::string, std::string>> fetchSpotifyPlaylists(const string &accessToken) const;
+
+    std::vector<std::string> fetchSpotifyPlaylistSongs(const std::string &accessToken, const std::string &playlistId) const;
 
 private:
     string clientId;

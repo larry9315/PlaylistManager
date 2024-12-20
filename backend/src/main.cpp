@@ -119,60 +119,92 @@ int main() {
         }
     });
 
-    // Route to fetch YouTube playlists
     drogon::app().registerHandler(
-        "/playlists/youtube",
-        [youtubeAuth](const drogon::HttpRequestPtr &req,
-                      std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
+    "/playlists/{service}",
+    [youtubeAuth, spotifyAuth](const drogon::HttpRequestPtr &req,
+       std::function<void(const drogon::HttpResponsePtr &)> &&callback,
+       const std::string &service) {
+        Json::Value response;
+        std::vector<std::pair<std::string, std::string>> playlists;
 
+        if (service == "youtube") {
             if (youtubeAccessToken.empty()) {
-                auto resp = drogon::HttpResponse::newHttpJsonResponse({{"error", "Missing access token for YouTube"}});
-                callback(resp);
+                response["error"] = "YouTube access token missing";
+                callback(drogon::HttpResponse::newHttpJsonResponse(response));
                 return;
             }
-
-            auto playlists = youtubeAuth.fetchYouTubePlaylists(youtubeAccessToken);
-
-            // Convert std::vector<std::string> to Json::Value
-            Json::Value playlistJson(Json::arrayValue);
-            for (const auto &playlist : playlists) {
-                playlistJson.append(playlist);
-            }
-
-            Json::Value response;
-            response["playlists"] = playlistJson;
-
-            auto resp = drogon::HttpResponse::newHttpJsonResponse(response);
-
-            callback(resp);
-        });
-
-    // Route to fetch Spotify playlists
-    drogon::app().registerHandler(
-        "/playlists/spotify",
-        [spotifyAuth](const drogon::HttpRequestPtr &req,
-                      std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
-
+            playlists = youtubeAuth.fetchYouTubePlaylists(youtubeAccessToken);
+        } else if (service == "spotify") {
             if (spotifyAccessToken.empty()) {
-                auto resp = drogon::HttpResponse::newHttpJsonResponse({{"error", "Missing access token for Spotify"}});
-                callback(resp);
+                response["error"] = "Spotify access token missing";
+                callback(drogon::HttpResponse::newHttpJsonResponse(response));
                 return;
             }
+            playlists = spotifyAuth.fetchSpotifyPlaylists(spotifyAccessToken);
+        } else {
+            response["error"] = "Invalid service";
+            callback(drogon::HttpResponse::newHttpJsonResponse(response));
+            return;
+        }
 
-            auto playlists = spotifyAuth.fetchSpotifyPlaylists(spotifyAccessToken);
+        // Convert std::vector<std::string> to Json::Value
+        Json::Value playlistJson(Json::arrayValue);
+        for (const auto &playlist : playlists) {
+            // Append each playlist string to the JSON array
+            Json::Value playlistObj;
+            playlistObj["id"] = playlist.first;   // playlistId
+            playlistObj["name"] = playlist.second; // playlistTitle
+            playlistJson.append(playlistObj);
+        }
 
-            // Convert std::vector<std::string> to Json::Value
-            Json::Value playlistJson(Json::arrayValue);
-            for (const auto &playlist : playlists) {
-                playlistJson.append(playlist);
-            }
+        // Prepare response JSON
+        response["playlists"] = playlistJson;
+        // Send the response
+        auto resp = drogon::HttpResponse::newHttpJsonResponse(response);
+        callback(resp);
+    });
 
+    // Route to fetch songs for a specific playlist
+    drogon::app().registerHandler(
+        "/playlists/{service}/{playlistId}/songs",
+        [youtubeAuth, spotifyAuth](const drogon::HttpRequestPtr &req,
+           std::function<void(const drogon::HttpResponsePtr &)> &&callback,
+           const std::string &service, const std::string &playlistId) {
             Json::Value response;
-            response["playlists"] = playlistJson;
+            std::vector<std::string> songs;
 
-            auto resp = drogon::HttpResponse::newHttpJsonResponse(response);
+            try {
+                // Determine the service and fetch songs
+                if (service == "youtube") {
+                    if (youtubeAccessToken.empty()) {
+                        throw std::runtime_error("Missing access token for YouTube");
+                    }
+                    songs = youtubeAuth.fetchYouTubePlaylistSongs(youtubeAccessToken, playlistId);
+                } else if (service == "spotify") {
+                    if (spotifyAccessToken.empty()) {
+                        throw std::runtime_error("Missing access token for Spotify");
+                    }
+                    songs = spotifyAuth.fetchSpotifyPlaylistSongs(spotifyAccessToken, playlistId);
+                } else {
+                    throw std::runtime_error("Invalid service");
+                }
 
-            callback(resp);
+                // Convert songs to JSON
+                Json::Value songsJson(Json::arrayValue);
+                for (const auto &song : songs) {
+                    Json::Value songJson;
+                    songJson["title"] = song; // Add other song details here if needed
+                    songsJson.append(songJson);
+                }
+
+                // Prepare response
+                response["songs"] = songsJson;
+                callback(drogon::HttpResponse::newHttpJsonResponse(response));
+            } catch (const std::exception &e) {
+                // Handle errors
+                response["error"] = e.what();
+                callback(drogon::HttpResponse::newHttpJsonResponse(response));
+            }
         });
 
     // Success Route

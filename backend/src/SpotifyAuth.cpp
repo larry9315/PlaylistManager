@@ -20,9 +20,9 @@ std::string SpotifyAuth::getAuthUrl() const {
     return "https://accounts.spotify.com/authorize?"
            "response_type=code&client_id=" + clientId +
            "&redirect_uri=" + redirectUri +
-           "&state=spotify" +  // Add "state" to track service
-            "&prompt=consent" +     // Force re-authentication
-            "&show_dialog=true";   // Force re-authentication
+           "&state=spotify";  // Add "state" to track service
+            // "&prompt=consent"     // Force re-authentication
+            // "&show_dialog=true";   // Force re-authentication
 }
 
 std::string SpotifyAuth::exchangeCodeForToken(const std::string &code) const {
@@ -73,7 +73,7 @@ std::string SpotifyAuth::exchangeCodeForToken(const std::string &code) const {
     }
 }
 
-vector<string> SpotifyAuth::fetchSpotifyPlaylists(const string &accessToken) const {
+std::vector<std::pair<std::string, std::string>> SpotifyAuth::fetchSpotifyPlaylists(const string &accessToken) const {
     try {
         io_context ioc;
         ssl::context sslCtx(ssl::context::sslv23_client);
@@ -101,17 +101,65 @@ vector<string> SpotifyAuth::fetchSpotifyPlaylists(const string &accessToken) con
 
         // Parse JSON response
         auto jsonResponse = json::parse(res.body());
-        std::vector<std::string> playlists;
+        std::vector<std::pair<std::string, std::string>> playlists;
 
         if (jsonResponse.contains("items")) {
             for (const auto &item : jsonResponse["items"]) {
-                playlists.push_back(item["name"].get<std::string>());
+                std::string playlistId = item["id"].get<std::string>();
+                std::string title = item["name"].get<std::string>();
+                playlists.emplace_back(playlistId, title);
             }
         }
 
         return playlists;
     } catch (const std::exception &e) {
         std::cerr << "Error fetching Spotify playlists: " << e.what() << std::endl;
+        return {};
+    }
+}
+
+std::vector<std::string> SpotifyAuth::fetchSpotifyPlaylistSongs(const std::string &accessToken, const std::string &playlistId) const {
+    try {
+        io_context ioc;
+        ssl::context sslCtx(ssl::context::sslv23_client);
+        ssl::stream<ip::tcp::socket> sslStream(ioc, sslCtx);
+
+        // Connect to Spotify API
+        ip::tcp::resolver resolver(ioc);
+        auto const results = resolver.resolve("api.spotify.com", "443");
+        connect(get_lowest_layer(sslStream), results.begin(), results.end());
+        sslStream.handshake(ssl::stream_base::client);
+
+        // Prepare HTTP GET request for playlist items
+        std::string target = "/v1/playlists/" + playlistId + "/tracks";
+        http::request<http::string_body> req(http::verb::get, target, 11);
+        req.set(http::field::host, "api.spotify.com");
+        req.set(http::field::authorization, "Bearer " + accessToken);
+        req.prepare_payload();
+
+        // Send the request
+        http::write(sslStream, req);
+
+        // Receive the response
+        flat_buffer buffer;
+        http::response<http::string_body> res;
+        http::read(sslStream, buffer, res);
+
+        // Parse JSON response
+        auto jsonResponse = json::parse(res.body());
+        std::vector<std::string> songs;
+
+        if (jsonResponse.contains("items")) {
+            for (const auto &item : jsonResponse["items"]) {
+                if (item.contains("track") && item["track"].contains("name")) {
+                    songs.push_back(item["track"]["name"].get<std::string>());
+                }
+            }
+        }
+
+        return songs;
+    } catch (const std::exception &e) {
+        std::cerr << "Error fetching Spotify playlist songs: " << e.what() << std::endl;
         return {};
     }
 }
