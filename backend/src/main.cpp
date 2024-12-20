@@ -41,21 +41,26 @@ int main() {
     callback(resp);
 });
 
-    // Route for YouTube OAuth consent screen
-    drogon::app().registerHandler("/auth/youtube", [youtubeAuth](const drogon::HttpRequestPtr &req,
-                                                                 std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
+    // Route for Auth consent screen
+    drogon::app().registerHandler(
+    "/auth/{service}",
+    [youtubeAuth, spotifyAuth](const drogon::HttpRequestPtr &req,
+                               std::function<void(const drogon::HttpResponsePtr &)> &&callback,
+                               const std::string &service) {
         auto resp = drogon::HttpResponse::newHttpResponse();
-        resp->setStatusCode(drogon::k302Found);  // HTTP 302 Redirect
-        resp->addHeader("Location", youtubeAuth.getAuthUrl());  // Redirect to Google OAuth
-        callback(resp);
-    });
 
-    // Route for Spotify OAuth consent screen
-    drogon::app().registerHandler("/auth/spotify", [spotifyAuth](const drogon::HttpRequestPtr &req,
-                                                                 std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
-        auto resp = drogon::HttpResponse::newHttpResponse();
-        resp->setStatusCode(drogon::k302Found);  // HTTP 302 Redirect
-        resp->addHeader("Location", spotifyAuth.getAuthUrl());  // Redirect to Spotify OAuth
+        if (service == "youtube") {
+            resp->setStatusCode(drogon::k302Found);  // HTTP 302 Redirect
+            resp->addHeader("Location", youtubeAuth.getAuthUrl());  // Redirect to Google OAuth
+        } else if (service == "spotify") {
+            resp->setStatusCode(drogon::k302Found);  // HTTP 302 Redirect
+            resp->addHeader("Location", spotifyAuth.getAuthUrl());  // Redirect to Spotify OAuth
+        } else {
+            // Invalid service handling
+            resp->setStatusCode(drogon::k400BadRequest);  // HTTP 400 Bad Request
+            resp->setBody("Invalid service specified.");
+        }
+
         callback(resp);
     });
 
@@ -63,12 +68,6 @@ int main() {
     drogon::app().registerHandler("/auth/callback", [youtubeAuth, spotifyAuth](const drogon::HttpRequestPtr &req,
                                                                                std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
         auto params = req->getParameters();
-
-        // Log parameters for debugging
-        std::cerr << "Received Query Parameters:\n";
-        for (const auto &p : params) {
-            std::cerr << p.first << ": " << p.second << std::endl;
-        }
 
         // Extract the authorization code
         auto authCode = params["code"];
