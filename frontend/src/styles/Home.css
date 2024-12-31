@@ -2,7 +2,7 @@
 
 /* General background styling */
 html {
-    background: linear-gradient(to right, #6e8efb, #a777e3); /* Gradient background */
+    background: linear-gradient(to right, #7087e4, #56f0ff); /* Gradient background */
     color: #fff;
 }
 
@@ -12,7 +12,7 @@ html {
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    /*background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);*/
     color: white;
     font-family: Arial, sans-serif;
     text-align: center;
@@ -23,7 +23,7 @@ html {
 .content {
     margin-top: 300px;
     padding: 20px;
-    background: rgba(179, 179, 179, 0.6);
+    background: rgba(0, 0, 0, 0.54);
     border-radius: 8px;
     max-width: 800px;
     width: 100%;

@@ -170,7 +170,7 @@ int main() {
            std::function<void(const drogon::HttpResponsePtr &)> &&callback,
            const std::string &service, const std::string &playlistId) {
             Json::Value response;
-            std::vector<std::string> songs;
+            std::vector<std::pair<std::string, std::string>> songs;
 
             try {
                 // Determine the service and fetch songs
@@ -192,7 +192,8 @@ int main() {
                 Json::Value songsJson(Json::arrayValue);
                 for (const auto &song : songs) {
                     Json::Value songJson;
-                    songJson["title"] = song; // Add other song details here if needed
+                    songJson["title"] = song.first; // Add other song details here if needed
+                    songJson["artist"] = song.second;
                     songsJson.append(songJson);
                 }
 
@@ -205,6 +206,49 @@ int main() {
                 callback(drogon::HttpResponse::newHttpJsonResponse(response));
             }
         });
+
+    drogon::app().registerHandler(
+    "/port/spotify-to-youtube",
+    [youtubeAuth, spotifyAuth](const drogon::HttpRequestPtr &req,
+                               std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
+        Json::Value response;
+
+        // Extract Spotify playlist ID and YouTube access token from the request
+        auto json = req->getJsonObject();
+        // if (!json || !json->isMember("spotifyPlaylistId")) {
+        //     response["error"] = "Missing parameters: spotifyPlaylistId or youtubeAccessToken";
+        //     callback(drogon::HttpResponse::newHttpJsonResponse(response));
+        //     return;
+        // }
+
+        const std::string spotifyPlaylistId = (*json)["spotifyPlaylistId"].asString();
+
+        // Fetch Spotify playlist songs
+        auto spotifySongs = spotifyAuth.fetchSpotifyPlaylistSongs(spotifyAccessToken, spotifyPlaylistId);
+
+        // Create a new YouTube playlist
+        const std::string youtubePlaylistName = "Imported from Spotify";
+        const std::string youtubePlaylistId =
+            youtubeAuth.createYouTubePlaylist(youtubeAccessToken, youtubePlaylistName);
+
+        if (youtubePlaylistId.empty()) {
+            response["error"] = "Failed to create YouTube playlist";
+            callback(drogon::HttpResponse::newHttpJsonResponse(response));
+            return;
+        }
+
+        // Search for each song on YouTube and add to playlist
+        for (const auto &song : spotifySongs) {
+            std::string videoId = youtubeAuth.searchYouTubeSong(youtubeAccessToken, song.first, song.second);
+            if (!videoId.empty()) {
+                youtubeAuth.addSongToYouTubePlaylist(youtubeAccessToken, youtubePlaylistId, videoId);
+            }
+        }
+
+        response["success"] = "Playlist ported successfully";
+        response["youtubePlaylistId"] = youtubePlaylistId;
+        callback(drogon::HttpResponse::newHttpJsonResponse(response));
+    });
 
     // Success Route
     drogon::app().registerHandler("/success", [](const drogon::HttpRequestPtr &req,

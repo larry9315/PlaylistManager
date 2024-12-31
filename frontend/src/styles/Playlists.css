@@ -55,3 +55,40 @@ li {
 .back-button:hover {
     background-color: #e63900;
 }
+
+.port-button {
+    margin-top: 8px;
+    /*margin-left: 5px;*/
+    padding: 8px 12px;
+    background-color: #1db954; /* Spotify green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.port-button:hover {
+    background-color: #1aa34a;
+}
+
+.playlist-title {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.songs-list {
+    margin-left: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+/* Example styles */
+.song-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.song-artist {
+    font-style: italic;
+    color: #666;
+}

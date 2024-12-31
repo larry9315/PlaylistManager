@@ -5,7 +5,6 @@ import "./../styles/Home.css";
 function Home() {
     const handleYouTubeLogin = () => {
         window.location.href = "https://localhost:8080/auth/youtube?redirect_uri=https://localhost:3000/playlists/youtube";
-        ;
     };
 
     const handleSpotifyLogin = () => {
@@ -15,7 +14,7 @@ function Home() {
     return (
         <div className="home-container">
             <div className="content">
-                <h1>Welcome to Playlist Manager</h1>
+                <h1>Playlist Manager</h1>
                 <p>Manage your YouTube and Spotify playlists with ease.</p>
                 <div className="buttons">
                     <button className="login-button youtube" onClick={handleYouTubeLogin}>

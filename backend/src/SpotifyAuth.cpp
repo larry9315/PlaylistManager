@@ -118,7 +118,7 @@ std::vector<std::pair<std::string, std::string>> SpotifyAuth::fetchSpotifyPlayli
     }
 }
 
-std::vector<std::string> SpotifyAuth::fetchSpotifyPlaylistSongs(const std::string &accessToken, const std::string &playlistId) const {
+std::vector<std::pair<std::string, std::string>> SpotifyAuth::fetchSpotifyPlaylistSongs(const std::string &accessToken, const std::string &playlistId) const {
     try {
         io_context ioc;
         ssl::context sslCtx(ssl::context::sslv23_client);
@@ -147,12 +147,21 @@ std::vector<std::string> SpotifyAuth::fetchSpotifyPlaylistSongs(const std::strin
 
         // Parse JSON response
         auto jsonResponse = json::parse(res.body());
-        std::vector<std::string> songs;
+        std::vector<std::pair<std::string, std::string>> songs;
 
         if (jsonResponse.contains("items")) {
             for (const auto &item : jsonResponse["items"]) {
-                if (item.contains("track") && item["track"].contains("name")) {
-                    songs.push_back(item["track"]["name"].get<std::string>());
+                if (item.contains("track")) {
+                    const auto &track = item["track"];
+                    std::string title = track.contains("name") ? track["name"].get<std::string>() : "Unknown Title";
+                    std::string artist = "Unknown Artist";
+
+                    // Extract artist names
+                    if (track.contains("artists") && track["artists"].is_array() && !track["artists"].empty()) {
+                        artist = track["artists"][0]["name"].get<std::string>();
+                    }
+
+                    songs.emplace_back(title, artist);
                 }
             }
         }

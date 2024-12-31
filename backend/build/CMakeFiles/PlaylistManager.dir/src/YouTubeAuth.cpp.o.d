@@ -2313,4 +2313,9 @@ CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o: \
   /opt/homebrew/include/nlohmann/ordered_map.hpp \
   /opt/homebrew/include/nlohmann/detail/macro_unscope.hpp \
   /opt/homebrew/include/nlohmann/thirdparty/hedley/hedley_undef.hpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/iostream
+  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/iostream \
+  /opt/homebrew/include/json/value.h \
+  /opt/homebrew/include/json/forwards.h \
+  /opt/homebrew/include/json/config.h \
+  /opt/homebrew/include/json/allocator.h \
+  /opt/homebrew/include/json/version.h
