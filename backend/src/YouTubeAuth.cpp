@@ -39,8 +39,8 @@ std::string YouTubeAuth::getAuthUrl() const {
            "&redirect_uri=" + encodedRedirectUri +
            "&response_type=code"
            "&scope=https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.force-ssl"
-           "&state=youtube";
-           // "&prompt=consent";  // Force the consent screen
+           "&state=youtube"
+           "&prompt=consent";  // Force the consent screen
 }
 
 std::string YouTubeAuth::exchangeCodeForToken(const std::string &authCode) const {

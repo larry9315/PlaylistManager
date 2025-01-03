@@ -102,3 +102,30 @@ p {
     background-color: #169c44;
 }
 
+/* Sign-out button container */
+.signout-container {
+    position: absolute; /* Position relative to the nearest positioned ancestor */
+    top: 10px; /* Distance from the top of the page */
+    right: 10px; /* Distance from the right edge of the page */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+/* Sign-out button styling */
+.signout-button {
+    padding: 10px 15px; /* Padding for the button */
+    background-color: #ff4d4d; /* Red background to signify sign-out */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Slight shadow for better visibility */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.signout-button:hover {
+    background-color: #d73838; /* Darker red on hover */
+}

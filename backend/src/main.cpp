@@ -64,6 +64,40 @@ int main() {
         callback(resp);
     });
 
+    drogon::app().registerHandler(
+    "/auth/{service}/status",
+    [](const drogon::HttpRequestPtr &req,
+       std::function<void(const drogon::HttpResponsePtr &)> &&callback,
+       const std::string &service) {
+        Json::Value response;
+
+        if (service == "youtube") {
+            response["signedIn"] = !youtubeAccessToken.empty(); // Check if YouTube token exists
+        } else if (service == "spotify") {
+            response["signedIn"] = !spotifyAccessToken.empty(); // Check if Spotify token exists
+        } else {
+            response["error"] = "Invalid service";
+            callback(drogon::HttpResponse::newHttpJsonResponse(response));
+            return;
+        }
+
+        callback(drogon::HttpResponse::newHttpJsonResponse(response));
+    });
+
+    drogon::app().registerHandler(
+    "/auth/{service}/signout",
+    [](const drogon::HttpRequestPtr &req, std::function<void(const drogon::HttpResponsePtr &)> &&callback, const std::string &service) {
+        if (service == "youtube") {
+            youtubeAccessToken.clear(); // Clear YouTube access token
+        } else if (service == "spotify") {
+            spotifyAccessToken.clear(); // Clear Spotify access token
+        }
+
+        Json::Value response;
+        response["success"] = true;
+        auto resp = drogon::HttpResponse::newHttpJsonResponse(response);
+        callback(resp);
+    });
 
     drogon::app().registerHandler("/auth/callback", [youtubeAuth, spotifyAuth](const drogon::HttpRequestPtr &req,
                                                                                std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
@@ -117,6 +151,8 @@ int main() {
             callback(resp);
         }
     });
+
+
 
     drogon::app().registerHandler(
     "/playlists/{service}",
@@ -258,13 +294,13 @@ int main() {
         auto service = params["state"];  // Extract state (youtube or spotify)
 
         std::string redirectUrl;
-        if (service == "youtube") {
-            redirectUrl = "http://localhost:3000/playlists/youtube";
-        } else if (service == "spotify") {
-            redirectUrl = "http://localhost:3000/playlists/spotify";
-        } else {
-            redirectUrl = "http://localhost:3000";  // Default or fallback
-        }
+        // if (service == "youtube") {
+        //     redirectUrl = "http://localhost:3000/playlists/youtube";
+        // } else if (service == "spotify") {
+        //     redirectUrl = "http://localhost:3000/playlists/spotify";
+        // } else {
+        redirectUrl = "http://localhost:3000";  // Default or fallback
+        // }
 
         // HTML response with dynamic redirect
         auto resp = drogon::HttpResponse::newHttpResponse();
@@ -280,7 +316,7 @@ int main() {
             "</head>"
             "<body>"
             "<h1>Authorization Successful</h1>"
-            "<p>You have been authenticated successfully! Redirecting to playlists...</p>"
+            // "<p>You have been authenticated successfully! Redirecting to playlists...</p>"
             "</body>"
             "</html>");
         resp->setContentTypeString("text/html");

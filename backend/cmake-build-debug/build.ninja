@@ -70,13 +70,6 @@ build CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o: CXX_COMPILER__Playli
   OBJECT_DIR = CMakeFiles/PlaylistManager.dir
   OBJECT_FILE_DIR = CMakeFiles/PlaylistManager.dir/src
 
-build CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o: CXX_COMPILER__PlaylistManager_unscanned_Debug /Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/controllers/Playlist.cc || cmake_object_order_depends_target_PlaylistManager
-  DEP_FILE = CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/larrypark/Projects/PlaylistManager/PlaylistManager/backend/include -isystem /opt/homebrew/include
-  OBJECT_DIR = CMakeFiles/PlaylistManager.dir
-  OBJECT_FILE_DIR = CMakeFiles/PlaylistManager.dir/controllers
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target PlaylistManager
@@ -85,7 +78,7 @@ build CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o: CXX_COMPILER__Pl
 #############################################
 # Link the executable PlaylistManager
 
-build PlaylistManager: CXX_EXECUTABLE_LINKER__PlaylistManager_Debug CMakeFiles/PlaylistManager.dir/src/main.cpp.o CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o CMakeFiles/PlaylistManager.dir/controllers/Playlist.cc.o | /opt/homebrew/lib/libdrogon.1.9.8.dylib /opt/homebrew/lib/libssl.dylib /opt/homebrew/lib/libcrypto.dylib /opt/homebrew/lib/libtrantor.1.5.22.dylib /opt/homebrew/lib/libjsoncpp.dylib
+build PlaylistManager: CXX_EXECUTABLE_LINKER__PlaylistManager_Debug CMakeFiles/PlaylistManager.dir/src/main.cpp.o CMakeFiles/PlaylistManager.dir/src/YouTubeAuth.cpp.o CMakeFiles/PlaylistManager.dir/src/SpotifyAuth.cpp.o | /opt/homebrew/lib/libdrogon.1.9.8.dylib /opt/homebrew/lib/libssl.dylib /opt/homebrew/lib/libcrypto.dylib /opt/homebrew/lib/libtrantor.1.5.22.dylib /opt/homebrew/lib/libjsoncpp.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  /opt/homebrew/lib/libdrogon.1.9.8.dylib  /opt/homebrew/lib/libssl.dylib  /opt/homebrew/lib/libcrypto.dylib  /opt/homebrew/lib/libtrantor.1.5.22.dylib  /opt/homebrew/lib/libjsoncpp.dylib
   OBJECT_DIR = CMakeFiles/PlaylistManager.dir
